@@ -13,28 +13,37 @@ import CompanyCard from "./CompanyCard";
  */
 
 function CompanyList() {
-  const [companies, setCompanies] = useState([]);
+  const [companies, setCompanies] = useState({
+    companies: [],
+    isLoading: true
+  });
 
   useEffect(function loadCompaniesFromAPI() {
     async function fetchCompanies() {
-      const companies = await JoblyApi.request("companies");
-      setCompanies(companies.companies);
+      const response = await JoblyApi.getCompanies();
+      setCompanies({
+        companies: response,
+        isLoading: false
+      });
     }
     fetchCompanies();
   }, []);
 
   async function handleSearch(searchTerm) {
-    const companies = await JoblyApi.request("companies", {
-      nameLike: searchTerm,
-    });
-    setCompanies(companies.companies);
+    const response = await JoblyApi.searchCompanies(searchTerm);
+    setCompanies({
+        companies: response,
+        isLoading: false
+      });
   }
+
+  if(companies.isLoading) return <i>Loading...</i>;
 
   return (
     <div>
       <SearchForm handleSearch={handleSearch} />
 
-      {companies.map((c) => (
+      {companies.companies.map((c) => (
         <CompanyCard key={c.handle} company={c} />
       ))}
     </div>
