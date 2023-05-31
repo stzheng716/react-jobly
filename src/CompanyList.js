@@ -17,14 +17,14 @@ function CompanyList() {
 
   useEffect(function loadCompaniesFromAPI() {
     async function fetchCompanies() {
-      const companies = await JoblyApi.request("/companies");
+      const companies = await JoblyApi.request("companies");
       setCompanies(companies.companies);
     }
     fetchCompanies();
   }, []);
 
   async function handleSearch(searchTerm) {
-    const companies = await JoblyApi.request("/companies", {
+    const companies = await JoblyApi.request("companies", {
       nameLike: searchTerm,
     });
     setCompanies(companies.companies);
