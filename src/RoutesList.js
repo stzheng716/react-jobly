@@ -12,8 +12,6 @@ import CompanyDetail from "./CompanyDetail";
  * Component to hold the routes
  */
 
-//TODO: make Error 404 page component
-
 function RoutesList() {
   return (
     <Routes>
@@ -21,7 +19,7 @@ function RoutesList() {
       <Route path="/companies" element={<CompanyList />} />
       <Route path="/jobs" element={<JobList />} />
       <Route path="/companies/:name" element={<CompanyDetail />} />
-      {/* <Route path="*" element={<Error404 />} /> */}
+      <Route path="*" element={<Navigate to="/"/>} />
     </Routes>
   );
 }

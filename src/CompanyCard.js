@@ -10,15 +10,15 @@ import { Link } from "react-router-dom";
  *
  * Shows company card
  */
-//TODO: destructure company
 function CompanyCard({ company }) {
-  // const {handle, name, description, logoUrl} = company
+  const {handle, name, description, logoUrl} = company;
+  
   return (
-    <Link to={`/companies/${company.handle}`}>
+    <Link to={`/companies/${handle}`}>
       <div>
-        <p>{company.name}</p>
-        <p>{company.description}</p>
-        {company.logoUrl && <img src={company.logoUrl} alt={company.name} />}
+        <p>{name}</p>
+        <p>{description}</p>
+        {logoUrl && <img src={logoUrl} alt={name} />}
       </div>
     </Link>
   );

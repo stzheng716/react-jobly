@@ -44,26 +44,12 @@ class JoblyApi {
     return res.company;
   }
 
-  /** Get all companies */
-
-  // static async getCompanies() {
-  //   const res = await JoblyApi.request("companies");
-  //   return res.companies;
-  // }
-
   /** Search companies by a search term */
 
   static async getCompanies(nameLike) {
     const res = await JoblyApi.request("companies", { nameLike });
     return res.companies;
   }
-
-  /** Get all jobs */
-
-  // static async getJobs() {
-  //   const res = await JoblyApi.request("jobs");
-  //   return res.jobs;
-  // }
 
   /** Search jobs by a search term */
 

@@ -17,11 +17,11 @@ function SearchForm({ handleSearch }) {
     const input = evt.target;
     setSearchTerm(input.value);
   }
-//TODO: trim searchTerm
+
   /** Call parent function and clear form. */
   function handleSubmit(evt) {
     evt.preventDefault();
-    handleSearch(searchTerm);
+    handleSearch(searchTerm.trim());
     setSearchTerm("");
   }
 

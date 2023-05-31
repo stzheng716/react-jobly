@@ -1,4 +1,5 @@
 import React from "react";
+import convertAndFormat from "./convertAndFormat";
 
 /** JobCard component.
  *
@@ -9,17 +10,17 @@ import React from "react";
  *
  * Shows job card
  */
-//TODO: add logic for equity
-//TODO: format number & add logic (salary)
-//TODO: destructure
 //TODO: use card component in bootstrap
 function JobCard({ job }) {
+  const {companyHandle, title, salary, equity} = job;
+  const formattedSalary = convertAndFormat(salary)
+  console.log("companyhande", companyHandle, "equity", equity, typeof equity)
   return (
     <div>
-      <p>{job.companyHandle}</p>
-      <p>{job.title}</p>
-      <p>{job.salary}</p>
-      <p>{job.equity}</p>
+      <p>{companyHandle}</p>
+      <p>{title}</p>
+      {salary && <p>Salary: ${formattedSalary}</p>}
+      <p>equity: {equity === "0" || equity === null ? <p>No equity</p> : <p>{equity}</p>}</p>
     </div>
   );
 }

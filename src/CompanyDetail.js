@@ -7,33 +7,39 @@ import JobCardListing from "./JobCardListing";
  *
  * State: companies: [company, company,....]
  *
- * RouteList -> CompanyList //TODO:complete it
+ * RouteList -> CompanyList -> JobCardListing
  *
  * Makes API request for a company and renders a company card that includes all jobs for the company
  */
 
-//TODO: try catch ~line 25
+
 function CompanyDetail() {
   const { name } = useParams();
+  const [error, setError] = useState(null)
 
-  const [company, setCompany] = useState({
-    company: null,
-    isLoading: true,
-  });
+  const [company, setCompany] = useState(null);
 
   useEffect(function loadCompaniesFromAPI() {
     async function fetchCompany() {
-      const response = await JoblyApi.getCompany(name);
-      setCompany({
-        company: response,
-        isLoading: false,
-      });
+      try {
+        const response = await JoblyApi.getCompany(name);
+        setCompany(response);
+      } catch (err) {
+        setError(err)
+      }
     }
     fetchCompany();
   }, []);
 
-  if (company.isLoading) return <i>Loading...</i>;
-  return <JobCardListing jobs={company.company.jobs} />;
+
+  if (!company && !error) return <i>Loading...</i>;
+
+  return (
+    <div>
+      {(error.length === 0) ? <JobCardListing jobs={company.jobs} /> :
+        error.map(e => <p>{e}</p>)}
+    </div>
+  )
 }
 
 export default CompanyDetail;
