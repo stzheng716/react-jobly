@@ -1,5 +1,6 @@
 import React from "react";
 import convertAndFormat from "./convertAndFormat";
+import Card from "react-bootstrap/Card";
 
 /** JobCard component.
  *
@@ -12,16 +13,17 @@ import convertAndFormat from "./convertAndFormat";
  */
 //TODO: use card component in bootstrap
 function JobCard({ job }) {
-  const {companyHandle, title, salary, equity} = job;
-  const formattedSalary = convertAndFormat(salary)
-  console.log("companyhande", companyHandle, "equity", equity, typeof equity)
+  const { companyHandle, title, salary, equity } = job;
+  const formattedSalary = convertAndFormat(salary);
   return (
-    <div>
-      <p>{companyHandle}</p>
-      <p>{title}</p>
-      {salary && <p>Salary: ${formattedSalary}</p>}
-      <p>equity: {equity === "0" || equity === null ? <p>No equity</p> : <p>{equity}</p>}</p>
-    </div>
+    <Card style={{ width: "40rem" }} className="m-auto">
+      <Card.Body>
+        <Card.Title>{title}</Card.Title>
+        <Card.Text>{companyHandle}</Card.Text>
+        {salary && <Card.Text>Salary: ${formattedSalary}</Card.Text>}
+        <Card.Text>equity: {equity === "0" || equity === null ? <p>No equity</p> : <p>{equity}</p>}</Card.Text>
+      </Card.Body>
+    </Card>
   );
 }
 

@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Card from "react-bootstrap/Card";
 
 /** CompanyCard component.
  *
@@ -11,17 +12,21 @@ import { Link } from "react-router-dom";
  * Shows company card
  */
 function CompanyCard({ company }) {
-  const {handle, name, description, logoUrl} = company;
-  
+  const { handle, name, description, logoUrl } = company;
+
   return (
     <Link to={`/companies/${handle}`}>
-      <div>
-        <p>{name}</p>
-        <p>{description}</p>
-        {logoUrl && <img src={logoUrl} alt={name} />}
-      </div>
+      <Card style={{ width: "40rem" }} className="m-auto">
+        <Card.Body>
+          <Card.Title>{name}</Card.Title>
+          <Card.Text>{description}</Card.Text>
+          {logoUrl && <img src={logoUrl} alt={name} />}
+        </Card.Body>
+      </Card>
     </Link>
   );
 }
+
+
 
 export default CompanyCard;
