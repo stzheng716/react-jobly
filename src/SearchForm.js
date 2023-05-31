@@ -1,5 +1,14 @@
 import React, { useState } from "react";
 
+/** SearchForm component.
+ *
+ * State:
+ * - searchTerm: "searchTerm"
+ *
+ * { CompanyList, JobList } -> SearchForm
+ *
+ * Accepts user's search term and handles change/submit
+ */
 function SearchForm({ handleSearch }) {
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -8,7 +17,7 @@ function SearchForm({ handleSearch }) {
     const input = evt.target;
     setSearchTerm(input.value);
   }
-
+//TODO: trim searchTerm
   /** Call parent function and clear form. */
   function handleSubmit(evt) {
     evt.preventDefault();

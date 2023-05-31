@@ -15,30 +15,24 @@ import CompanyCard from "./CompanyCard";
 function CompanyList() {
   const [companies, setCompanies] = useState({
     companies: [],
-    isLoading: true
+    isLoading: true,
   });
 
   useEffect(function loadCompaniesFromAPI() {
-    async function fetchCompanies() {
-      const response = await JoblyApi.getCompanies();
-      setCompanies({
-        companies: response,
-        isLoading: false
-      });
-    }
-    fetchCompanies();
+    handleSearch();
   }, []);
 
+  /** Search company with the search term and update the companies list*/
   async function handleSearch(searchTerm) {
-    const response = await JoblyApi.searchCompanies(searchTerm);
+    const response = await JoblyApi.getCompanies(searchTerm);
     setCompanies({
-        companies: response,
-        isLoading: false
-      });
+      companies: response,
+      isLoading: false,
+    });
   }
-
-  if(companies.isLoading) return <i>Loading...</i>;
-
+  //TODO: another option is to remove isLoading
+  if (companies.isLoading) return <i>Loading...</i>;
+  //TODO: add a logic for no companies (friendly message)
   return (
     <div>
       <SearchForm handleSearch={handleSearch} />
