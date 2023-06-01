@@ -18,6 +18,7 @@ function App() {
   useEffect(
     function changeUser() {
       getUser();
+      setCurrUser({isLoading: false})
     },
     [token]
   );
@@ -25,7 +26,8 @@ function App() {
   /** Make a login request to api and receive and set a token*/
   async function handleLogIn({ username, password }) {
     const token = await JoblyApi.login(username, password);
-    setToken(token);
+    const storageToken = localStorage.setItem("token", token)
+    setToken(storageToken);
     JoblyApi.token = token;
   }
 
@@ -44,12 +46,14 @@ function App() {
       lastName,
       email
     );
+    // localStorage.setItem("token", token)
     setToken(token);
     JoblyApi.token = token;
   }
 
   /** Make a get request to api and receive and set a current user*/
   async function getUser() {
+    // let token = localStorage.getItem("token");
     if (token) {
       const { username } = jwt_decode(token);
       const user = await JoblyApi.getUser(username);
@@ -74,14 +78,15 @@ function App() {
   /** sets current user and token to null and empty string */
   function handleLogout() {
     setCurrUser({ user: null, isLoading: true });
+    localStorage.removeItem("token");
     setToken("");
   }
 
-  // if (currUser.isLoading) return <i>Loading...</i>;
+  if (currUser.isLoading) return <i>Loading...</i>;
 
   return (
     <div className="App">
-      <userContext.Provider value={currUser}>
+      <userContext.Provider value={currUser.user}>
         <BrowserRouter>
           <NavBar handleLogout={handleLogout} />
           <RoutesList

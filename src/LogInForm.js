@@ -37,6 +37,7 @@ function LogInForm({ handleLogIn }) {
       await handleLogIn(formData);
     } catch (error) {
       setError(error);
+      return
     }
     setFormData({
       username: "",

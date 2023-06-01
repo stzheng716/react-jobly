@@ -49,6 +49,7 @@ function ProfileForm({ handleUpdate }) {
   }
 
   return (
+    //add success messsage for user 
     <form className="LogInForm" onSubmit={handleSubmit}>
       {error && error.map((e, i) => <p key={i}>{e}</p>)}
 

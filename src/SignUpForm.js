@@ -14,7 +14,6 @@ import { useNavigate } from "react-router-dom";
  *
  */
 
-// TODO: make notes like login
 function SignUpForm({ handleSignUp }) {
   const [formData, setFormData] = useState({
     username: "",
@@ -42,6 +41,7 @@ function SignUpForm({ handleSignUp }) {
       await handleSignUp(formData);
     } catch (error) {
       setError(error);
+      return
     }
     setFormData({
       username: "",
