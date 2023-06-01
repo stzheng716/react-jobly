@@ -19,9 +19,9 @@ function App() {
   //add context for use
   async function handleLogIn({ username, password }) {
     const token = await JoblyApi.login(username, password);
-    setToken(token); //TODO:
+    setToken(token);
   }
-  console.log("🚀 ~ file: App.js:24 ~ handleLogIn ~ token:", token);
+  // console.log("🚀 ~ file: App.js:24 ~ handleLogIn ~ token:", token);
 
   async function handleSignUp({
     username,
@@ -41,8 +41,9 @@ function App() {
   }
 
   async function getUser() {
+    console.log("token in getuser", token)
     if (token) {
-      const { username } = await jwt_decode(token);
+      const { username } = jwt_decode(token);
       const user = await JoblyApi.getUser(username);
       setCurrUser(user);
     }
