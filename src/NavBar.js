@@ -13,6 +13,7 @@ import userContext from "./userContext";
  * Renders links to home, companies, and jobs
  */
 //TODO: see if we can make NavLink active
+//TODO: add username to navbar
 function NavBar({ handleLogout }) {
   const user = useContext(userContext);
 

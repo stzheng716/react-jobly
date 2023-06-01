@@ -65,11 +65,13 @@ class JoblyApi {
       { username, password },
       "post"
     );
+    //TODO: set token in app.js 
     this.token = res.token;
 
     return res.token;
   }
 
+  /** Sign up new user*/
   static async signUp(username, password, firstName, lastName, email) {
     const res = await this.request(
       "auth/register",
@@ -80,11 +82,13 @@ class JoblyApi {
     return res.token;
   }
 
+  /** Get information about a user*/
   static async getUser(username) {
     const res = await this.request(`users/${username}`);
     return res.user;
   }
 
+  /** Update information about a user*/
   static async updateUser(username, firstName, lastName, email) {
     const res = await this.request(
       `users/${username}`,

@@ -7,6 +7,8 @@ import "./Home.css"
  * 
  * Renders home page with background
  */
+
+//TODO: add message to user
 function Home() {
     return (
         <div className="background">

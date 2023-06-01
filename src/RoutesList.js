@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
 import Home from "./Home";
 import CompanyList from "./CompanyList";
@@ -7,6 +7,7 @@ import CompanyDetail from "./CompanyDetail";
 import LogInForm from "./LogInForm";
 import SignUpForm from "./SignUpForm";
 import ProfileForm from "./ProfileForm";
+import userContext from "./userContext";
 
 /** RouteList component.
  *
@@ -16,7 +17,9 @@ import ProfileForm from "./ProfileForm";
  */
 
 function RoutesList({ handleLogIn, handleSignUp, handleUpdate, error }) {
-  return (
+    const user = useContext(userContext);
+
+    return (
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/companies" element={<CompanyList />} />

@@ -12,6 +12,7 @@ import JoblyApi from "./api";
  * Renders NavBar and RouteList
  */
 function App() {
+//TODO: add isloading state in currUser state
   const [currUser, setCurrUser] = useState(null);
   const [token, setToken] = useState("");
   const [error, setError] = useState(null);
@@ -21,6 +22,7 @@ function App() {
     try {
       const token = await JoblyApi.login(username, password);
       setToken(token);
+      //set token in api.js
     } catch (err) {
       setError(err);
     }
@@ -43,6 +45,7 @@ function App() {
         email
       );
       setToken(token);
+      //set token in api.js
     } catch (err) {
       setError(err);
     }
@@ -50,7 +53,6 @@ function App() {
 
   /** Make a get request to api and receive and set a current user*/
   async function getUser() {
-    console.log("token in getuser", token);
     if (token) {
       const { username } = jwt_decode(token);
       const user = await JoblyApi.getUser(username);
@@ -58,6 +60,7 @@ function App() {
     }
   }
 
+  /** Make a patch request to api and receive and set a current user*/
   async function handleUpdate(formData) {
     const { username, firstName, lastName, email } = formData;
     try {
@@ -73,7 +76,11 @@ function App() {
     }
   }
 
-  function handleLogout() {}
+  /** sets current user and token to null and empty string */
+  function handleLogout() {
+    setCurrUser(null)
+    setToken("")
+  }
 
   useEffect(
     function changeUser() {
@@ -81,8 +88,6 @@ function App() {
     },
     [token]
   );
-  console.log("currUser= ", currUser);
-  console.log("token outside= ", token);
 
   return (
     <div className="App">

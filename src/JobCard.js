@@ -11,7 +11,7 @@ import Card from "react-bootstrap/Card";
  *
  * Shows job card
  */
-//TODO: use card component in bootstrap
+
 function JobCard({ job }) {
   const { companyHandle, title, salary, equity } = job;
   const formattedSalary = convertAndFormat(salary);

@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import userContext from "./userContext";
 
+//TODO: add docstrings and correct errors to state
 function ProfileForm({ handleUpdate, error }) {
   const user = useContext(userContext);
 
@@ -22,10 +23,19 @@ function ProfileForm({ handleUpdate, error }) {
     }));
   }
 
+  //TODO: use try catch 
   /** Call parent function and clear form. */
   function handleSubmit(evt) {
     evt.preventDefault();
     handleUpdate(formData);
+    try {
+        handleUpdate(formData);
+    } catch (err){
+        setError(err)
+        return
+    }
+    setError([])
+    setFormData((formData) => ({...formData}))
   }
 
   return (

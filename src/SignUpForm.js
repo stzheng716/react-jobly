@@ -1,5 +1,19 @@
 import React, { useState } from "react";
 
+/** SignUpForm component.
+ * 
+ * Props: 
+ *  - handleSignUp: fn()
+ *  - error: [error, error,...] 
+ *
+ * State:
+ * - formData: {username, password, firstName, lastName, email}
+ *
+ * RoutesList -> SignUpForm
+ *
+ */
+
+// TODO: make notes like login
 function SignUpForm({ handleSignUp, error }) {
   const [formData, setFormData] = useState({
     username: "",
@@ -72,7 +86,6 @@ function SignUpForm({ handleSignUp, error }) {
         <label htmlFor="lastName">Last name</label>
         <input
           id="lastName"
-          type="email"
           name="lastName"
           className="form-control"
           placeholder="Snow"
