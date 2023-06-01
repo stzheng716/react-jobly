@@ -2,7 +2,7 @@ import "./App.css";
 import { useState, useEffect } from "react";
 import { BrowserRouter } from "react-router-dom";
 import jwt_decode from "jwt-decode";
-
+import userContext from "./userContext";
 import RoutesList from "./RoutesList";
 import NavBar from "./NavBar";
 import JoblyApi from "./api";
@@ -39,6 +39,12 @@ function App() {
     setToken(token);
   }
 
+  async function getUser() {
+    const { username } = await jwt_decode(token);
+    const user = await JoblyApi.getUser(username);
+    setCurrUser(user);
+  }
+
   function handleUpdate() {}
 
   function handleLogout() {}
@@ -51,18 +57,16 @@ function App() {
   //receive back: { username, firstName, lastName, isAdmin, jobs }
   useEffect(
     function changeUser() {
-      async function getUser() {
-        const { username } = jwt_decode(token);
-        const user = await JoblyApi.getUser(username);
-        setCurrUser(user);
+      if(token){
+        getUser();
       }
-      getUser();
     },
     [token]
   );
 
   return (
     <div className="App">
+      <userContext.Provider value={currUser}>
       <BrowserRouter>
         <NavBar handleLogout={handleLogout} />
         <RoutesList
@@ -71,6 +75,7 @@ function App() {
           handleUpdate={handleUpdate}
         />
       </BrowserRouter>
+      </userContext.Provider>
     </div>
   );
 }

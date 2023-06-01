@@ -1,9 +1,10 @@
-import React from "react";
+import React, {useContext} from "react";
 import { NavLink } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
+import userContext from "./userContext";
 
 /** NavBar component.
  *
@@ -13,6 +14,10 @@ import NavDropdown from "react-bootstrap/NavDropdown";
  */
 //TODO: see if we can make NavLink active
 function NavBar({ handleLogout }) {
+
+  const user = useContext(userContext)
+  console.log(user)
+
   return (
     <Navbar bg="light" expand="lg">
       <Container>
@@ -21,15 +26,15 @@ function NavBar({ handleLogout }) {
         <Navbar.Collapse id="basic-navbar-nav">
           {(user) ?
             <Nav className="ms-auto">
-              <Nav.Link to="/companies">Companies </Nav.Link>
-              <Nav.Link to="/jobs">Jobs</Nav.Link>
-              <Nav.Link to="/profile">Profile </Nav.Link>
-              <Nav.Link to="/logout" onClick={handleLogout}>logout</Nav.Link>
+              <Nav.Link href="/companies">Companies </Nav.Link>
+              <Nav.Link href="/jobs">Jobs</Nav.Link>
+              <Nav.Link href="/profile">Profile </Nav.Link>
+              <Nav.Link href="/logout" onClick={handleLogout}>logout</Nav.Link>
             </Nav>
             :
             <Nav className="ms-auto">
-              <Nav.Link to="/login">login</Nav.Link>
-              <Nav.Link to="/signup">Sign Up</Nav.Link>
+              <Nav.Link href="/login">login</Nav.Link>
+              <Nav.Link href="/signup">Sign Up</Nav.Link>
             </Nav>
           }
         </Navbar.Collapse>
