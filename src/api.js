@@ -66,6 +66,7 @@ class JoblyApi {
       "post"
     );
     this.token = res.token;
+
     return res.token;
   }
 

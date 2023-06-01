@@ -16,7 +16,6 @@ import userContext from "./userContext";
 function NavBar({ handleLogout }) {
 
   const user = useContext(userContext)
-  console.log(user)
 
   return (
     <Navbar bg="light" expand="lg">

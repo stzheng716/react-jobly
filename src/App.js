@@ -21,6 +21,7 @@ function App() {
     const token = await JoblyApi.login(username, password);
     setToken(token); //TODO:
   }
+  console.log("🚀 ~ file: App.js:24 ~ handleLogIn ~ token:", token);
 
   async function handleSignUp({
     username,
@@ -40,9 +41,11 @@ function App() {
   }
 
   async function getUser() {
-    const { username } = await jwt_decode(token);
-    const user = await JoblyApi.getUser(username);
-    setCurrUser(user);
+    if (token) {
+      const { username } = await jwt_decode(token);
+      const user = await JoblyApi.getUser(username);
+      setCurrUser(user);
+    }
   }
 
   function handleUpdate() {}
@@ -57,24 +60,24 @@ function App() {
   //receive back: { username, firstName, lastName, isAdmin, jobs }
   useEffect(
     function changeUser() {
-      if(token){
-        getUser();
-      }
+      getUser();
     },
     [token]
   );
+  console.log("currUser= ", currUser);
+  console.log("token outside= ", token);
 
   return (
     <div className="App">
       <userContext.Provider value={currUser}>
-      <BrowserRouter>
-        <NavBar handleLogout={handleLogout} />
-        <RoutesList
-          handleLogIn={handleLogIn}
-          handleSignUp={handleSignUp}
-          handleUpdate={handleUpdate}
-        />
-      </BrowserRouter>
+        <BrowserRouter>
+          <NavBar handleLogout={handleLogout} />
+          <RoutesList
+            handleLogIn={handleLogIn}
+            handleSignUp={handleSignUp}
+            handleUpdate={handleUpdate}
+          />
+        </BrowserRouter>
       </userContext.Provider>
     </div>
   );
