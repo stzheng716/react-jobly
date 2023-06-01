@@ -12,20 +12,21 @@ import JoblyApi from "./api";
  * Renders NavBar and RouteList
  */
 function App() {
-//TODO: add isloading state in currUser state
-  const [currUser, setCurrUser] = useState(null);
+  const [currUser, setCurrUser] = useState({ user: null, isLoading: true });
   const [token, setToken] = useState("");
-  const [error, setError] = useState(null);
+
+  useEffect(
+    function changeUser() {
+      getUser();
+    },
+    [token]
+  );
 
   /** Make a login request to api and receive and set a token*/
   async function handleLogIn({ username, password }) {
-    try {
-      const token = await JoblyApi.login(username, password);
-      setToken(token);
-      //set token in api.js
-    } catch (err) {
-      setError(err);
-    }
+    const token = await JoblyApi.login(username, password);
+    setToken(token);
+    JoblyApi.token = token;
   }
 
   /** Make a sign up request to api and receive and set a token*/
@@ -36,19 +37,15 @@ function App() {
     lastName,
     email,
   }) {
-    try {
-      const token = await JoblyApi.signUp(
-        username,
-        password,
-        firstName,
-        lastName,
-        email
-      );
-      setToken(token);
-      //set token in api.js
-    } catch (err) {
-      setError(err);
-    }
+    const token = await JoblyApi.signUp(
+      username,
+      password,
+      firstName,
+      lastName,
+      email
+    );
+    setToken(token);
+    JoblyApi.token = token;
   }
 
   /** Make a get request to api and receive and set a current user*/
@@ -56,38 +53,31 @@ function App() {
     if (token) {
       const { username } = jwt_decode(token);
       const user = await JoblyApi.getUser(username);
-      setCurrUser(user);
+      setCurrUser({ user: user, isLoading: false });
     }
   }
 
   /** Make a patch request to api and receive and set a current user*/
   async function handleUpdate(formData) {
     const { username, firstName, lastName, email } = formData;
-    try {
-      const user = await JoblyApi.updateUser(
-        username,
-        firstName,
-        lastName,
-        email
-      );
-      setCurrUser(user);
-    } catch (err) {
-      setError(err);
-    }
+
+    const user = await JoblyApi.updateUser(
+      username,
+      firstName,
+      lastName,
+      email
+    );
+
+    setCurrUser({ user: user, isLoading: false });
   }
 
   /** sets current user and token to null and empty string */
   function handleLogout() {
-    setCurrUser(null)
-    setToken("")
+    setCurrUser({ user: null, isLoading: true });
+    setToken("");
   }
 
-  useEffect(
-    function changeUser() {
-      getUser();
-    },
-    [token]
-  );
+  // if (currUser.isLoading) return <i>Loading...</i>;
 
   return (
     <div className="App">
@@ -95,7 +85,6 @@ function App() {
         <BrowserRouter>
           <NavBar handleLogout={handleLogout} />
           <RoutesList
-            error={error}
             handleLogIn={handleLogIn}
             handleSignUp={handleSignUp}
             handleUpdate={handleUpdate}

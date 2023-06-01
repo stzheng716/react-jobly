@@ -65,9 +65,6 @@ class JoblyApi {
       { username, password },
       "post"
     );
-    //TODO: set token in app.js 
-    this.token = res.token;
-
     return res.token;
   }
 
@@ -78,7 +75,6 @@ class JoblyApi {
       { username, password, firstName, lastName, email },
       "post"
     );
-    this.token = res.token;
     return res.token;
   }
 

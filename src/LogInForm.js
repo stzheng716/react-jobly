@@ -1,10 +1,11 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 /** LogInForm component.
- * 
- * Props: 
+ *
+ * Props:
  *  - handleLogIn: fn()
- *  - error: [error, error,...] 
+ *  - error: [error, error,...]
  *
  * State:
  * - formData: {username, password}
@@ -12,12 +13,13 @@ import React, { useState } from "react";
  * RoutesList -> LogInForm
  *
  */
-//TODO: make error a state
-function LogInForm({ handleLogIn, error }) {
+function LogInForm({ handleLogIn }) {
   const [formData, setFormData] = useState({
     username: "",
     password: "",
   });
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   /** Update form input. */
   function handleChange(evt) {
@@ -28,18 +30,19 @@ function LogInForm({ handleLogIn, error }) {
     }));
   }
 
-  //TODO: make try catch with handleLogIn
-    //await handleLogIn
-    //make handleSubmit async
-  //TODO: Use navigate to redirect to companies  
   /** Call parent function and clear form. */
-  function handleSubmit(evt) {
+  async function handleSubmit(evt) {
     evt.preventDefault();
-    handleLogIn(formData);
+    try {
+      await handleLogIn(formData);
+    } catch (error) {
+      setError(error);
+    }
     setFormData({
       username: "",
       password: "",
     });
+    navigate("/");
   }
 
   return (

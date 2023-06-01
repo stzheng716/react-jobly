@@ -1,10 +1,11 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 /** SignUpForm component.
- * 
- * Props: 
+ *
+ * Props:
  *  - handleSignUp: fn()
- *  - error: [error, error,...] 
+ *  - error: [error, error,...]
  *
  * State:
  * - formData: {username, password, firstName, lastName, email}
@@ -14,7 +15,7 @@ import React, { useState } from "react";
  */
 
 // TODO: make notes like login
-function SignUpForm({ handleSignUp, error }) {
+function SignUpForm({ handleSignUp }) {
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -22,6 +23,8 @@ function SignUpForm({ handleSignUp, error }) {
     lastName: "",
     email: "",
   });
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   /** Update form input. */
   function handleChange(evt) {
@@ -33,9 +36,21 @@ function SignUpForm({ handleSignUp, error }) {
   }
 
   /** Call parent function and clear form. */
-  function handleSubmit(evt) {
+  async function handleSubmit(evt) {
     evt.preventDefault();
-    handleSignUp(formData);
+    try {
+      await handleSignUp(formData);
+    } catch (error) {
+      setError(error);
+    }
+    setFormData({
+      username: "",
+      password: "",
+      firstName: "",
+      lastName: "",
+      email: "",
+    });
+    navigate("/");
   }
 
   return (

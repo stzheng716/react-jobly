@@ -13,7 +13,6 @@ import userContext from "./userContext";
  * Renders links to home, companies, and jobs
  */
 //TODO: see if we can make NavLink active
-//TODO: add username to navbar
 function NavBar({ handleLogout }) {
   const user = useContext(userContext);
 
@@ -29,7 +28,7 @@ function NavBar({ handleLogout }) {
               <NavLink to="/jobs">Jobs</NavLink>
               <NavLink to="/profile">Profile </NavLink>
               <NavLink to="/logout" onClick={handleLogout}>
-                logout
+                logout {user.username}
               </NavLink>
             </Nav>
           ) : (
@@ -42,14 +41,6 @@ function NavBar({ handleLogout }) {
       </Container>
     </Navbar>
   );
-}
-
-{
-  /* <nav>
-<NavLink to="/">Jobly</NavLink>
-<NavLink to="/companies">Companies</NavLink>
-<NavLink to="/jobs">Jobs</NavLink>
-</nav> */
 }
 
 export default NavBar;

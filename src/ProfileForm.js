@@ -1,8 +1,19 @@
 import React, { useState, useContext } from "react";
 import userContext from "./userContext";
 
-//TODO: add docstrings and correct errors to state
-function ProfileForm({ handleUpdate, error }) {
+/** ProfileForm component.
+ *
+ * Props:
+ *  - handleUpdate: fn()
+ *  - error: [error, error,...]
+ *
+ * State:
+ * - formData: {username, firstName, lastName, email}
+ *
+ * RoutesList -> ProfileForm
+ *
+ */
+function ProfileForm({ handleUpdate }) {
   const user = useContext(userContext);
 
   const { username, firstName, lastName, email } = user;
@@ -13,6 +24,7 @@ function ProfileForm({ handleUpdate, error }) {
     lastName: lastName,
     email: email,
   });
+  const [error, setError] = useState(null);
 
   /** Update form input. */
   function handleChange(evt) {
@@ -23,19 +35,17 @@ function ProfileForm({ handleUpdate, error }) {
     }));
   }
 
-  //TODO: use try catch 
-  /** Call parent function and clear form. */
-  function handleSubmit(evt) {
+  /** Call parent function and show updated data */
+  async function handleSubmit(evt) {
     evt.preventDefault();
-    handleUpdate(formData);
     try {
-        handleUpdate(formData);
-    } catch (err){
-        setError(err)
-        return
+      await handleUpdate(formData);
+    } catch (err) {
+      setError(err);
+      return;
     }
-    setError([])
-    setFormData((formData) => ({...formData}))
+    setError([]);
+    setFormData((formData) => ({ ...formData }));
   }
 
   return (
