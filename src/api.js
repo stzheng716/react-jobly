@@ -59,6 +59,30 @@ class JoblyApi {
   }
 
   //Add more api call function
+  static async login(username, password) {
+    const res = await this.request(
+      "auth/token",
+      { username, password },
+      "post"
+    );
+    this.token = res.token;
+    return res.token;
+  }
+
+  static async signUp(username, password, firstName, lastName, email) {
+    const res = await this.request(
+      "auth/register",
+      { username, password, firstName, lastName, email },
+      "post"
+    );
+    this.token = res.token;
+    return res.token;
+  }
+
+  static async getUser(username) {
+    const res = await this.request(`users/${username}`);
+    return res.user;
+  }
 }
 
 export default JoblyApi;

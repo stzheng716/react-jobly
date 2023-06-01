@@ -1,7 +1,11 @@
-import './App.css';
-import { BrowserRouter } from 'react-router-dom';
-import RoutesList from './RoutesList';
-import NavBar from './NavBar';
+import "./App.css";
+import { useState, useEffect } from "react";
+import { BrowserRouter } from "react-router-dom";
+import jwt_decode from "jwt-decode";
+
+import RoutesList from "./RoutesList";
+import NavBar from "./NavBar";
+import JoblyApi from "./api";
 
 /** App component.
  *
@@ -9,37 +13,63 @@ import NavBar from './NavBar';
  */
 function App() {
   //double check if user should be state
-  const [currUser, setUser] = useState(null)
+  const [currUser, setCurrUser] = useState(null);
+  const [token, setToken] = useState("");
 
-  //add context for use 
-  function handleLogIn(){
-
+  //add context for use
+  async function handleLogIn({ username, password }) {
+    const token = await JoblyApi.login(username, password);
+    setToken(token); //TODO:
   }
 
-
-  function handleSignUp(){
-    
+  async function handleSignUp({
+    username,
+    password,
+    firstName,
+    lastName,
+    email,
+  }) {
+    const token = await JoblyApi.signUp(
+      username,
+      password,
+      firstName,
+      lastName,
+      email
+    );
+    setToken(token);
   }
 
+  function handleUpdate() {}
 
-  function handleUpdate(){
-    
-  }
+  function handleLogout() {}
 
-  function handleLogout(){
-    
-  }
-
+  //take the token and decode the payload to get username
+  //find decoding frontend JWT library (JWT-decode)
+  //take username and make a GET to backend for user information
+  //route = /:username
+  //token be dependency of useEffect
+  //receive back: { username, firstName, lastName, isAdmin, jobs }
+  useEffect(
+    function changeUser() {
+      async function getUser() {
+        const { username } = jwt_decode(token);
+        const user = await JoblyApi.getUser(username);
+        setCurrUser(user);
+      }
+      getUser();
+    },
+    [token]
+  );
 
   return (
     <div className="App">
       <BrowserRouter>
-        <NavBar handleLogout={handleLogout}/>
-        <RoutesList 
-          handleLogIn={handleLogIn} 
-          handleSignUp={handleSignUp} 
+        <NavBar handleLogout={handleLogout} />
+        <RoutesList
+          handleLogIn={handleLogIn}
+          handleSignUp={handleSignUp}
           handleUpdate={handleUpdate}
-          />
+        />
       </BrowserRouter>
     </div>
   );
@@ -47,31 +77,31 @@ function App() {
 
 export default App;
 
-//Sudo code 
+//Sudo code
 
-//make login form 
-  //get username and password
+//make login form
+//get username and password
 
-  //handleLogin function to call the static method from api.js
+//handleLogin function to call the static method from api.js
 
-  //handleSignUp function to call another static method from api.js for registering a user
-  
+//handleSignUp function to call another static method from api.js for registering a user
+
 //send username and password to backend (POST request to the backend)
-  //create a function in api.js to make POST request
-    //set token in api.js
-    //returns token to app.js
+//create a function in api.js to make POST request
+//set token in api.js
+//returns token to app.js
 
 //receive token back from backend and set state for token in app.js
 
 //useEffect to see if token changed.
-  //take the token and decode the payload to get username
-    //find decoding frontend JWT library (JWT-decode) 
-  //take username and make a GET to backend for user information
-    //route = /:username
-    //token be dependency of useEffect
-    //receive back: { username, firstName, lastName, isAdmin, jobs }
+//take the token and decode the payload to get username
+//find decoding frontend JWT library (JWT-decode)
+//take username and make a GET to backend for user information
+//route = /:username
+//token be dependency of useEffect
+//receive back: { username, firstName, lastName, isAdmin, jobs }
 
 //set state of current user to user information
-  //set the context for the user information
+//set the context for the user information
 
 //use logic in our component to check the context to see if user is logged in
