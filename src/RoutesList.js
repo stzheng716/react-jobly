@@ -4,11 +4,14 @@ import Home from "./Home";
 import CompanyList from "./CompanyList";
 import JobList from "./JobList";
 import CompanyDetail from "./CompanyDetail";
+import LogInForm from "./LogInForm";
+import SignUpForm from "./SignUpForm";
+import ProfileForm from "./ProfileForm";
 
 /** RouteList component.
  *
  * RoutesList -> {Home, CompanyList, JobList, CompanyDetail}
- * 
+ *
  * Component to hold the routes
  */
 
@@ -19,7 +22,10 @@ function RoutesList() {
       <Route path="/companies" element={<CompanyList />} />
       <Route path="/jobs" element={<JobList />} />
       <Route path="/companies/:name" element={<CompanyDetail />} />
-      <Route path="*" element={<Navigate to="/"/>} />
+      <Route path="/login" element={<LogInForm />} />
+      <Route path="/signup" element={<SignUpForm />} />
+      <Route path="/profile" element={<ProfileForm />} />
+      <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   );
 }
