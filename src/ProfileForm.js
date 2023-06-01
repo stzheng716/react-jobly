@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import userContext from "./userContext";
 
-function ProfileForm({ handleUpdate }) {
-// const {username, firstName, lastName, email} = user;
+function ProfileForm({ handleUpdate, error }) {
+  const user = useContext(userContext);
 
-const [formData, setFormData] = useState({
-    // username: username,
-    // firstName: firstName,
-    // lastName: lastName,
-    // email: email,
+  const { username, firstName, lastName, email } = user;
+
+  const [formData, setFormData] = useState({
+    username: username,
+    firstName: firstName,
+    lastName: lastName,
+    email: email,
   });
 
   /** Update form input. */
@@ -27,6 +30,8 @@ const [formData, setFormData] = useState({
 
   return (
     <form className="LogInForm" onSubmit={handleSubmit}>
+      {error && error.map((e, i) => <p key={i}>{e}</p>)}
+
       <div className="mb-3">
         <label htmlFor="username">username</label>
         <input
@@ -38,7 +43,7 @@ const [formData, setFormData] = useState({
           disabled
         />
       </div>
-      
+
       <div className="mb-3">
         <label htmlFor="firstName">First name</label>
         <input
@@ -56,7 +61,6 @@ const [formData, setFormData] = useState({
         <label htmlFor="lastName">Last name</label>
         <input
           id="lastName"
-          type="email"
           name="lastName"
           className="form-control"
           placeholder="Snow"

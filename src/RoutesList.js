@@ -15,16 +15,25 @@ import ProfileForm from "./ProfileForm";
  * Component to hold the routes
  */
 
-function RoutesList({handleLogIn, handleSignUp, handleUpdate}) {
+function RoutesList({ handleLogIn, handleSignUp, handleUpdate, error }) {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/companies" element={<CompanyList />} />
       <Route path="/jobs" element={<JobList />} />
       <Route path="/companies/:name" element={<CompanyDetail />} />
-      <Route path="/login" element={<LogInForm handleLogIn={handleLogIn}/>} />
-      <Route path="/signup" element={<SignUpForm handleSignUp={handleSignUp}/>} />
-      <Route path="/profile" element={<ProfileForm handleUpdate={handleUpdate}/>} />
+      <Route
+        path="/login"
+        element={<LogInForm handleLogIn={handleLogIn} error={error} />}
+      />
+      <Route
+        path="/signup"
+        element={<SignUpForm handleSignUp={handleSignUp} error={error} />}
+      />
+      <Route
+        path="/profile"
+        element={<ProfileForm handleUpdate={handleUpdate} error={error} />}
+      />
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   );

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function SignUpForm({ handleSignUp }) {
+function SignUpForm({ handleSignUp, error }) {
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -26,6 +26,8 @@ function SignUpForm({ handleSignUp }) {
 
   return (
     <form className="LogInForm" onSubmit={handleSubmit}>
+      {error && error.map((e, i) => <p key={i}>{e}</p>)}
+
       <div className="mb-3">
         <label htmlFor="username">username</label>
         <input
@@ -52,7 +54,7 @@ function SignUpForm({ handleSignUp }) {
           aria-label="password"
         />
       </div>
-      
+
       <div className="mb-3">
         <label htmlFor="firstName">First name</label>
         <input

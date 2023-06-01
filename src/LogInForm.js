@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function LogInForm({ handleLogIn }) {
+function LogInForm({ handleLogIn, error }) {
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -27,8 +27,9 @@ function LogInForm({ handleLogIn }) {
 
   return (
     <form className="LogInForm" onSubmit={handleSubmit}>
+      {error && error.map((e, i) => <p key={i}>{e}</p>)}
       <div className="mb-3">
-      <label htmlFor="username">username</label>
+        <label htmlFor="username">username</label>
         <input
           id="username"
           name="username"
@@ -41,7 +42,7 @@ function LogInForm({ handleLogIn }) {
       </div>
 
       <div className="mb-3">
-      <label htmlFor="password">Password</label>
+        <label htmlFor="password">Password</label>
         <input
           id="password"
           type="password"

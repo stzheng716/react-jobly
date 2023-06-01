@@ -12,17 +12,21 @@ import JoblyApi from "./api";
  * Renders NavBar and RouteList
  */
 function App() {
-  //double check if user should be state
   const [currUser, setCurrUser] = useState(null);
   const [token, setToken] = useState("");
+  const [error, setError] = useState(null);
 
-  //add context for use
+  /** Make a login request to api and receive and set a token*/
   async function handleLogIn({ username, password }) {
-    const token = await JoblyApi.login(username, password);
-    setToken(token);
+    try {
+      const token = await JoblyApi.login(username, password);
+      setToken(token);
+    } catch (err) {
+      setError(err);
+    }
   }
-  // console.log("🚀 ~ file: App.js:24 ~ handleLogIn ~ token:", token);
 
+  /** Make a sign up request to api and receive and set a token*/
   async function handleSignUp({
     username,
     password,
@@ -30,18 +34,23 @@ function App() {
     lastName,
     email,
   }) {
-    const token = await JoblyApi.signUp(
-      username,
-      password,
-      firstName,
-      lastName,
-      email
-    );
-    setToken(token);
+    try {
+      const token = await JoblyApi.signUp(
+        username,
+        password,
+        firstName,
+        lastName,
+        email
+      );
+      setToken(token);
+    } catch (err) {
+      setError(err);
+    }
   }
 
+  /** Make a get request to api and receive and set a current user*/
   async function getUser() {
-    console.log("token in getuser", token)
+    console.log("token in getuser", token);
     if (token) {
       const { username } = jwt_decode(token);
       const user = await JoblyApi.getUser(username);
@@ -49,16 +58,23 @@ function App() {
     }
   }
 
-  function handleUpdate() {}
+  async function handleUpdate(formData) {
+    const { username, firstName, lastName, email } = formData;
+    try {
+      const user = await JoblyApi.updateUser(
+        username,
+        firstName,
+        lastName,
+        email
+      );
+      setCurrUser(user);
+    } catch (err) {
+      setError(err);
+    }
+  }
 
   function handleLogout() {}
 
-  //take the token and decode the payload to get username
-  //find decoding frontend JWT library (JWT-decode)
-  //take username and make a GET to backend for user information
-  //route = /:username
-  //token be dependency of useEffect
-  //receive back: { username, firstName, lastName, isAdmin, jobs }
   useEffect(
     function changeUser() {
       getUser();
@@ -74,6 +90,7 @@ function App() {
         <BrowserRouter>
           <NavBar handleLogout={handleLogout} />
           <RoutesList
+            error={error}
             handleLogIn={handleLogIn}
             handleSignUp={handleSignUp}
             handleUpdate={handleUpdate}

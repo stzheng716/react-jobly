@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
@@ -14,28 +14,29 @@ import userContext from "./userContext";
  */
 //TODO: see if we can make NavLink active
 function NavBar({ handleLogout }) {
-
-  const user = useContext(userContext)
+  const user = useContext(userContext);
 
   return (
     <Navbar bg="light" expand="lg">
       <Container>
-        <Navbar.Brand href="/">Jobly</Navbar.Brand>
+        <NavLink to="/">Jobly</NavLink>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          {(user) ?
+          {user ? (
             <Nav className="ms-auto">
               <NavLink to="/companies">Companies </NavLink>
               <NavLink to="/jobs">Jobs</NavLink>
               <NavLink to="/profile">Profile </NavLink>
-              <NavLink to="/logout" onClick={handleLogout}>logout</NavLink>
+              <NavLink to="/logout" onClick={handleLogout}>
+                logout
+              </NavLink>
             </Nav>
-            :
+          ) : (
             <Nav className="ms-auto">
               <NavLink to="/login">login</NavLink>
               <NavLink to="/signup">Sign Up</NavLink>
             </Nav>
-          }
+          )}
         </Navbar.Collapse>
       </Container>
     </Navbar>

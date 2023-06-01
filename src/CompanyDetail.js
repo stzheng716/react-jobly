@@ -12,10 +12,9 @@ import JobCardListing from "./JobCardListing";
  * Makes API request for a company and renders a company card that includes all jobs for the company
  */
 
-
 function CompanyDetail() {
   const { name } = useParams();
-  const [error, setError] = useState(null)
+  const [error, setError] = useState(null);
 
   const [company, setCompany] = useState(null);
 
@@ -25,22 +24,23 @@ function CompanyDetail() {
         const response = await JoblyApi.getCompany(name);
         setCompany(response);
       } catch (err) {
-        setError(err)
+        setError(err);
       }
     }
     fetchCompany();
   }, []);
 
-
   if (!company && !error) return <i>Loading...</i>;
 
   return (
     <div>
-      {(!error) 
-        ? <JobCardListing jobs={company.jobs} /> 
-        : error.map(e => <p>{e}</p>)}
+      {!error ? (
+        <JobCardListing jobs={company.jobs} />
+      ) : (
+        error.map((e, i) => <p key={i}>{e}</p>)
+      )}
     </div>
-  )
+  );
 }
 
 export default CompanyDetail;
