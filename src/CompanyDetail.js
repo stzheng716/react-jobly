@@ -36,8 +36,9 @@ function CompanyDetail() {
 
   return (
     <div>
-      {(error.length === 0) ? <JobCardListing jobs={company.jobs} /> :
-        error.map(e => <p>{e}</p>)}
+      {(!error) 
+        ? <JobCardListing jobs={company.jobs} /> 
+        : error.map(e => <p>{e}</p>)}
     </div>
   )
 }

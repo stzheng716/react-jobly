@@ -11,17 +11,27 @@ import NavDropdown from "react-bootstrap/NavDropdown";
  *
  * Renders links to home, companies, and jobs
  */
-function NavBar() {
+//TODO: see if we can make NavLink active
+function NavBar({ handleLogout }) {
   return (
     <Navbar bg="light" expand="lg">
       <Container>
         <Navbar.Brand href="/">Jobly</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="ms-auto">
-            <Nav.Link href="/companies">Companies </Nav.Link>
-            <Nav.Link href="/jobs">Jobs</Nav.Link>
-          </Nav>
+          {(user) ?
+            <Nav className="ms-auto">
+              <Nav.Link to="/companies">Companies </Nav.Link>
+              <Nav.Link to="/jobs">Jobs</Nav.Link>
+              <Nav.Link to="/profile">Profile </Nav.Link>
+              <Nav.Link to="/logout" onClick={handleLogout}>logout</Nav.Link>
+            </Nav>
+            :
+            <Nav className="ms-auto">
+              <Nav.Link to="/login">login</Nav.Link>
+              <Nav.Link to="/signup">Sign Up</Nav.Link>
+            </Nav>
+          }
         </Navbar.Collapse>
       </Container>
     </Navbar>

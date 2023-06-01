@@ -21,8 +21,8 @@ function SearchForm({ handleSearch }) {
   /** Call parent function and clear form. */
   function handleSubmit(evt) {
     evt.preventDefault();
-    handleSearch(searchTerm.trim());
-    setSearchTerm("");
+    handleSearch(searchTerm.trim() || undefined);
+    setSearchTerm(searchTerm.trim());
   }
 
   return (

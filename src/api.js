@@ -47,16 +47,18 @@ class JoblyApi {
   /** Search companies by a search term */
 
   static async getCompanies(nameLike) {
-    const res = await JoblyApi.request("companies", { nameLike });
+    const res = await this.request("companies", { nameLike });
     return res.companies;
   }
 
   /** Search jobs by a search term */
 
   static async getJobs(title) {
-    const res = await JoblyApi.request("jobs", { title });
+    const res = await this.request("jobs", { title });
     return res.jobs;
   }
+
+  //Add more api call function
 }
 
 export default JoblyApi;

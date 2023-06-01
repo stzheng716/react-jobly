@@ -28,6 +28,7 @@ function LogInForm({ handleLogIn }) {
   return (
     <form className="LogInForm" onSubmit={handleSubmit}>
       <div className="mb-3">
+      <label htmlFor="username">username</label>
         <input
           id="username"
           name="username"
@@ -40,6 +41,7 @@ function LogInForm({ handleLogIn }) {
       </div>
 
       <div className="mb-3">
+      <label htmlFor="password">Password</label>
         <input
           id="password"
           type="password"
