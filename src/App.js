@@ -14,20 +14,46 @@ import JoblyApi from "./api";
 function App() {
   const [currUser, setCurrUser] = useState({ user: null, isLoading: true });
   const [token, setToken] = useState("");
+  console.log("🚀 ~ file: App.js:17 ~ App ~ token:", token);
+  console.log("local storage= ", localStorage);
 
   useEffect(
     function changeUser() {
+      checkLocalStorage();
       getUser();
-      setCurrUser({isLoading: false})
+      setCurrUser({ isLoading: false });
     },
     [token]
   );
 
+  function checkLocalStorage() {
+    const storageToken = localStorage.getItem("token");
+    console.log(
+      "🚀 ~ file: App.js:31 ~ checkLocalStorage ~ storageToken:",
+      storageToken
+    );
+
+    if (storageToken) {
+      setToken(storageToken);
+    }
+  }
+
+  /** Make a get request to api and receive and set a current user*/
+  async function getUser() {
+    if (token) {
+      console.log("🚀 ~ file: App.js:44 ~ getUser ~ token:", token);
+
+      const { username } = jwt_decode(token);
+      const user = await JoblyApi.getUser(username);
+      setCurrUser({ user: user, isLoading: false });
+    }
+  }
+
   /** Make a login request to api and receive and set a token*/
   async function handleLogIn({ username, password }) {
     const token = await JoblyApi.login(username, password);
-    const storageToken = localStorage.setItem("token", token)
-    setToken(storageToken);
+    localStorage.setItem("token", token);
+    setToken(token);
     JoblyApi.token = token;
   }
 
@@ -46,19 +72,9 @@ function App() {
       lastName,
       email
     );
-    // localStorage.setItem("token", token)
+    localStorage.setItem("token", token);
     setToken(token);
     JoblyApi.token = token;
-  }
-
-  /** Make a get request to api and receive and set a current user*/
-  async function getUser() {
-    // let token = localStorage.getItem("token");
-    if (token) {
-      const { username } = jwt_decode(token);
-      const user = await JoblyApi.getUser(username);
-      setCurrUser({ user: user, isLoading: false });
-    }
   }
 
   /** Make a patch request to api and receive and set a current user*/
