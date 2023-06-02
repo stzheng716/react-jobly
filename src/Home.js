@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import userContext from "./userContext";
 import { useNavigate } from "react-router-dom";
+import Button from 'react-bootstrap/Button';
 
 import "./Home.css";
 
@@ -24,16 +25,20 @@ function Home() {
 
   return (
     <div className="background">
-      <h1>Jobly!</h1>
-      <p>All the jobs in one, convenient place.</p>
-      {user.user ? (
-        <p>Welcome Back, {user.user.firstName}!</p>
-      ) : (
+      <div>
+        <h1>Jobly!</h1>
         <div>
-          <button onClick={redirectToLogIn}>Log in</button>{" "}
-          <button onClick={redirectToSignUp}>Sign up</button>
+          <h2>All the jobs in one, convenient place.</h2>
+          {user.user ? (
+            <h2>Welcome Back, {user.user.firstName}!</h2>
+          ) : (
+            <div>
+              <Button variant="primary" onClick={redirectToLogIn}>Log in</Button>{" "}
+              <Button variant="primary" onClick={redirectToSignUp}>Sign up</Button>
+            </div>
+          )}
         </div>
-      )}
+      </div>
     </div>
   );
 }

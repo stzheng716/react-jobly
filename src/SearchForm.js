@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { Button } from "react-bootstrap";
+
 
 /** SearchForm component.
  *
@@ -31,12 +33,12 @@ function SearchForm({ handleSearch }) {
         <input
           id="searchTerm"
           name="searchTerm"
-          className="form-control"
           placeholder="Enter search term..."
           onChange={handleChange}
           value={searchTerm}
           aria-label="searchTerm"
         />
+        <Button variant="primary">Search</Button>
       </div>
     </form>
   );

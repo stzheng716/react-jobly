@@ -1,5 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import Notice from "./Notice";
+
 
 /** LogInForm component.
  *
@@ -47,9 +51,9 @@ function LogInForm({ handleLogIn }) {
   }
 
   return (
-    <form className="LogInForm" onSubmit={handleSubmit}>
-      {error && error.map((e, i) => <p key={i}>{e}</p>)}
-      <div className="mb-3">
+    <Form className="LogInForm" onSubmit={handleSubmit}>
+      {error && error.map((e, i) => <Notice key={i} message={e} type="danger"/>)}
+      <Form.Group className="mb-3">
         <label htmlFor="username">username</label>
         <input
           id="username"
@@ -60,9 +64,9 @@ function LogInForm({ handleLogIn }) {
           value={formData.username}
           aria-label="username"
         />
-      </div>
+      </Form.Group >
 
-      <div className="mb-3">
+      <Form.Group className="mb-3">
         <label htmlFor="password">Password</label>
         <input
           id="password"
@@ -74,10 +78,10 @@ function LogInForm({ handleLogIn }) {
           value={formData.password}
           aria-label="password"
         />
-      </div>
+      </Form.Group >
 
-      <button>Log In</button>
-    </form>
+      <Button variant="primary" type="submit">Log In</Button>
+    </Form>
   );
 }
 

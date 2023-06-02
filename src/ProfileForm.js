@@ -1,5 +1,7 @@
 import React, { useState, useContext } from "react";
 import userContext from "./userContext";
+import Notice from "./Notice";
+import { Button } from "react-bootstrap";
 
 /** ProfileForm component.
  *
@@ -52,7 +54,7 @@ function ProfileForm({ handleUpdate }) {
   return (
     //add success message for user
     <form className="LogInForm" onSubmit={handleSubmit}>
-      {error && error.map((e, i) => <p key={i}>{e}</p>)}
+      {error && error.map((e, i) => <Notice key={i} message={e} type="danger"/>)}
 
       <div className="mb-3">
         <label htmlFor="username">username</label>
@@ -105,7 +107,8 @@ function ProfileForm({ handleUpdate }) {
         />
       </div>
 
-      <button>Save Changes</button>
+      <Notice message="Update successful" type="success"/>
+      <Button variant="primary">Save Changes</Button>
     </form>
   );
 }

@@ -107,7 +107,7 @@ export default App;
 
 
 /*TODO: styling
-- button
+- button x
 - search bar
 - alert messages
 - put texts into div

@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import Notice from "./Notice";
 
 /** SignUpForm component.
  *
@@ -54,10 +57,10 @@ function SignUpForm({ handleSignUp }) {
   }
 
   return (
-    <form className="LogInForm" onSubmit={handleSubmit}>
-      {error && error.map((e, i) => <p key={i}>{e}</p>)}
+    <Form className="LogInForm" onSubmit={handleSubmit}>
+      {error && error.map((e, i) => <Notice key={i} message={e} type="danger"/>)}
 
-      <div className="mb-3">
+      <Form.Group className="mb-3">
         <label htmlFor="username">username</label>
         <input
           id="username"
@@ -68,9 +71,9 @@ function SignUpForm({ handleSignUp }) {
           value={formData.username}
           aria-label="username"
         />
-      </div>
+      </Form.Group>
 
-      <div className="mb-3">
+      <Form.Group className="mb-3">
         <label htmlFor="password">Password</label>
         <input
           id="password"
@@ -82,9 +85,9 @@ function SignUpForm({ handleSignUp }) {
           value={formData.password}
           aria-label="password"
         />
-      </div>
+      </Form.Group>
 
-      <div className="mb-3">
+      <Form.Group className="mb-3">
         <label htmlFor="firstName">First name</label>
         <input
           id="firstName"
@@ -95,9 +98,9 @@ function SignUpForm({ handleSignUp }) {
           value={formData.firstName}
           aria-label="firstName"
         />
-      </div>
+      </Form.Group>
 
-      <div className="mb-3">
+      <Form.Group className="mb-3">
         <label htmlFor="lastName">Last name</label>
         <input
           id="lastName"
@@ -108,9 +111,9 @@ function SignUpForm({ handleSignUp }) {
           value={formData.lastName}
           aria-label="lastName"
         />
-      </div>
+      </Form.Group>
 
-      <div className="mb-3">
+      <Form.Group className="mb-3">
         <label htmlFor="email">Email</label>
         <input
           id="email"
@@ -121,10 +124,10 @@ function SignUpForm({ handleSignUp }) {
           value={formData.email}
           aria-label="email"
         />
-      </div>
+      </Form.Group>
 
-      <button>Sign Up</button>
-    </form>
+      <Button variant="primary" type="submit">Sign Up</Button>
+    </Form>
   );
 }
 
