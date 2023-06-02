@@ -30,6 +30,7 @@ function RoutesList({ handleLogIn, handleSignUp, handleUpdate, error }) {
           path="/profile"
           element={<ProfileForm handleUpdate={handleUpdate} error={error} />}
         />
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     );
   } else {

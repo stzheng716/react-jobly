@@ -35,6 +35,7 @@ function ProfileForm({ handleUpdate }) {
     }));
   }
 
+  //TODO: Use/Add Alert component (make it customizable - type prop)
   /** Call parent function and show updated data */
   async function handleSubmit(evt) {
     evt.preventDefault();

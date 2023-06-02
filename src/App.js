@@ -7,13 +7,17 @@ import RoutesList from "./RoutesList";
 import NavBar from "./NavBar";
 import JoblyApi from "./api";
 
+const LOCAL_STORAGE_TOKEN_KEY = "token";
+
 /** App component.
  *
  * Renders NavBar and RouteList
  */
 function App() {
   const [currUser, setCurrUser] = useState({ user: null, isLoaded: false });
-  const [token, setToken] = useState(localStorage.getItem("token"));
+  const [token, setToken] = useState(
+    localStorage.getItem(LOCAL_STORAGE_TOKEN_KEY)
+  );
   useEffect(
     function changeUser() {
       getUser();
@@ -27,18 +31,19 @@ function App() {
       JoblyApi.token = token;
       const { username } = jwt_decode(token);
       const user = await JoblyApi.getUser(username);
+      localStorage.setItem(LOCAL_STORAGE_TOKEN_KEY, token);
       setCurrUser({ user: user, isLoaded: true });
     } else {
       setCurrUser({ user: null, isLoaded: true });
+      localStorage.removeItem(LOCAL_STORAGE_TOKEN_KEY);
     }
   }
 
   /** Make a login request to api and receive and set a token*/
   async function handleLogIn({ username, password }) {
     const token = await JoblyApi.login(username, password);
-    localStorage.setItem("token", token);
+    // localStorage.setItem(LOCAL_STORAGE_TOKEN_KEY, token);
     setToken(token);
-    JoblyApi.token = token;
   }
 
   /** Make a sign up request to api and receive and set a token*/
@@ -56,9 +61,8 @@ function App() {
       lastName,
       email
     );
-    localStorage.setItem("token", token);
+    // localStorage.setItem(LOCAL_STORAGE_TOKEN_KEY, token);
     setToken(token);
-    JoblyApi.token = token;
   }
 
   /** Make a patch request to api and receive and set a current user*/
@@ -78,10 +82,9 @@ function App() {
   /** sets current user and token to null and empty string */
   function handleLogout() {
     setCurrUser({ user: null, isLoaded: true });
-    localStorage.removeItem("token");
     setToken("");
   }
-
+  //TODO: Add loading component
   if (!currUser.isLoaded) return <i>Loading...</i>;
 
   return (
