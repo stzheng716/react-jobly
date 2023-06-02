@@ -105,6 +105,17 @@ function App() {
 
 export default App;
 
+
+/*TODO: styling
+- button
+- search bar
+- alert messages
+- put texts into div
+- background
+- add styling for active navlink
+
+*/
+
 //Sudo code
 
 //make login form
