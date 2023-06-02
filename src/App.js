@@ -14,12 +14,9 @@ import JoblyApi from "./api";
 function App() {
   const [currUser, setCurrUser] = useState({ user: null, isLoading: true });
   const [token, setToken] = useState("");
-  console.log("🚀 ~ file: App.js:17 ~ App ~ token:", token);
-  console.log("local storage= ", localStorage);
-
   useEffect(
     function changeUser() {
-      checkLocalStorage();
+      checkLocalStorage()
       getUser();
       setCurrUser({ isLoading: false });
     },
@@ -28,22 +25,18 @@ function App() {
 
   function checkLocalStorage() {
     const storageToken = localStorage.getItem("token");
-    console.log(
-      "🚀 ~ file: App.js:31 ~ checkLocalStorage ~ storageToken:",
-      storageToken
-    );
-
-    if (storageToken) {
+    if (storageToken) {    
+      JoblyApi.token = token;
       setToken(storageToken);
     }
   }
 
   /** Make a get request to api and receive and set a current user*/
   async function getUser() {
+    // checkLocalStorage();
     if (token) {
-      console.log("🚀 ~ file: App.js:44 ~ getUser ~ token:", token);
-
       const { username } = jwt_decode(token);
+      console.log("USERNAME", username);
       const user = await JoblyApi.getUser(username);
       setCurrUser({ user: user, isLoading: false });
     }
