@@ -26,8 +26,8 @@ function Home() {
     <div className="background">
       <h1>Jobly!</h1>
       <p>All the jobs in one, convenient place.</p>
-      {user ? (
-        <p>Welcome Back, {user.firstName}!</p>
+      {user.user ? (
+        <p>Welcome Back, {user.user.firstName}!</p>
       ) : (
         <div>
           <button onClick={redirectToLogIn}>Log in</button>{" "}

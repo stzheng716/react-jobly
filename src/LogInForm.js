@@ -37,7 +37,7 @@ function LogInForm({ handleLogIn }) {
       await handleLogIn(formData);
     } catch (error) {
       setError(error);
-      return
+      return;
     }
     setFormData({
       username: "",
@@ -45,7 +45,6 @@ function LogInForm({ handleLogIn }) {
     });
     navigate("/");
   }
-  console.log("ERROR", error)
 
   return (
     <form className="LogInForm" onSubmit={handleSubmit}>

@@ -16,7 +16,7 @@ import userContext from "./userContext";
 function ProfileForm({ handleUpdate }) {
   const user = useContext(userContext);
 
-  const { username, firstName, lastName, email } = user;
+  const { username, firstName, lastName, email } = user.user;
 
   const [formData, setFormData] = useState({
     username: username,
@@ -49,7 +49,7 @@ function ProfileForm({ handleUpdate }) {
   }
 
   return (
-    //add success messsage for user 
+    //add success message for user
     <form className="LogInForm" onSubmit={handleSubmit}>
       {error && error.map((e, i) => <p key={i}>{e}</p>)}
 

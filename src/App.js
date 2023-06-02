@@ -12,34 +12,24 @@ import JoblyApi from "./api";
  * Renders NavBar and RouteList
  */
 function App() {
-  const [currUser, setCurrUser] = useState({ user: null, isLoading: true });
+  const [currUser, setCurrUser] = useState({ user: null, isLoaded: false });
   const [token, setToken] = useState(localStorage.getItem("token"));
-  console.log("currUser= ", currUser);
   useEffect(
     function changeUser() {
-      // checkLocalStorage()
       getUser();
     },
     [token]
   );
 
-  // function checkLocalStorage() {
-  //   // const storageToken = localStorage.getItem("token");
-  //   if (storageToken) {
-  //     JoblyApi.token = token;
-  //     setToken(storageToken);
-  //   }
-  // }
-
   /** Make a get request to api and receive and set a current user*/
   async function getUser() {
-    // checkLocalStorage();
     if (token) {
       JoblyApi.token = token;
-      // setToken(storageToken);
       const { username } = jwt_decode(token);
       const user = await JoblyApi.getUser(username);
-      setCurrUser({ user: user, isLoading: false });
+      setCurrUser({ user: user, isLoaded: true });
+    } else {
+      setCurrUser({ user: null, isLoaded: true });
     }
   }
 
@@ -82,17 +72,17 @@ function App() {
       email
     );
 
-    setCurrUser({ user: user, isLoading: false });
+    setCurrUser({ user: user, isLoaded: true });
   }
 
   /** sets current user and token to null and empty string */
   function handleLogout() {
-    setCurrUser({ user: null, isLoading: true });
+    setCurrUser({ user: null, isLoaded: true });
     localStorage.removeItem("token");
     setToken("");
   }
 
-  // if (currUser.isLoading) return <i>Loading...</i>;
+  if (!currUser.isLoaded) return <i>Loading...</i>;
 
   return (
     <div className="App">

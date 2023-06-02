@@ -19,22 +19,22 @@ function NavBar({ handleLogout }) {
   return (
     <Navbar bg="light" expand="lg">
       <Container>
-        <NavLink to="/">Jobly</NavLink>
+        <Nav.Link href="/">Jobly</Nav.Link>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           {user ? (
             <Nav className="ms-auto">
-              <NavLink to="/companies">Companies </NavLink>
-              <NavLink to="/jobs">Jobs</NavLink>
-              <NavLink to="/profile">Profile </NavLink>
-              <NavLink to="/logout" onClick={handleLogout}>
+              <Nav.Link href="/companies">Companies </Nav.Link>
+              <Nav.Link href="/jobs">Jobs</Nav.Link>
+              <Nav.Link href="/profile">Profile </Nav.Link>
+              <Nav.Link href="/logout" onClick={handleLogout}>
                 logout {user.username}
-              </NavLink>
+              </Nav.Link>
             </Nav>
           ) : (
             <Nav className="ms-auto">
-              <NavLink to="/login">login</NavLink>
-              <NavLink to="/signup">Sign Up</NavLink>
+              <Nav.Link href="/login">login</Nav.Link>
+              <Nav.Link href="/signup">Sign Up</Nav.Link>
             </Nav>
           )}
         </Navbar.Collapse>
