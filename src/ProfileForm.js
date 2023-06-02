@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import userContext from "./userContext";
 import Notice from "./Notice";
-import { Button } from "react-bootstrap";
+import { Alert, Button } from "react-bootstrap";
 
 /** ProfileForm component.
  *
@@ -26,6 +26,8 @@ function ProfileForm({ handleUpdate }) {
     lastName: lastName,
     email: email,
   });
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+
   const [error, setError] = useState(null);
 
   /** Update form input. */
@@ -47,6 +49,9 @@ function ProfileForm({ handleUpdate }) {
       setError(err);
       return;
     }
+
+    setShowSuccessAlert(true);
+
     setError([]);
     setFormData((formData) => ({ ...formData }));
   }
@@ -54,7 +59,8 @@ function ProfileForm({ handleUpdate }) {
   return (
     //add success message for user
     <form className="LogInForm" onSubmit={handleSubmit}>
-      {error && error.map((e, i) => <Notice key={i} message={e} type="danger"/>)}
+      {error &&
+        error.map((e, i) => <Notice key={i} message={e} type="danger" />)}
 
       <div className="mb-3">
         <label htmlFor="username">username</label>
@@ -106,9 +112,12 @@ function ProfileForm({ handleUpdate }) {
           aria-label="email"
         />
       </div>
-
-      <Notice message="Update successful" type="success"/>
-      <Button variant="primary">Save Changes</Button>
+      <Alert show={showSuccessAlert} variant="success">
+        This is a success Message
+      </Alert>
+      <Button variant="primary" type="submit">
+        Save Changes
+      </Button>
     </form>
   );
 }

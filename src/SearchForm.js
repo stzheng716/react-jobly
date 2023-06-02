@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { Button } from "react-bootstrap";
-
+import { Button, Form } from "react-bootstrap";
 
 /** SearchForm component.
  *
@@ -28,8 +27,8 @@ function SearchForm({ handleSearch }) {
   }
 
   return (
-    <form className="NewTodoForm" onSubmit={handleSubmit}>
-      <div className="mb-3">
+    <Form onSubmit={handleSubmit}>
+      <Form.Group className="mb-3">
         <input
           id="searchTerm"
           name="searchTerm"
@@ -38,9 +37,11 @@ function SearchForm({ handleSearch }) {
           value={searchTerm}
           aria-label="searchTerm"
         />
-        <Button variant="primary">Search</Button>
-      </div>
-    </form>
+        <Button variant="primary" type="submit" className="m-1">
+          Search
+        </Button>
+      </Form.Group>
+    </Form>
   );
 }
 

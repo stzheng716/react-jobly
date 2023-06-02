@@ -109,8 +109,8 @@ export default App;
 /*TODO: styling
 - button x
 - search bar
-- alert messages
-- put texts into div
+- alert messages x
+- put texts into div 
 - background
 - add styling for active navlink
 
