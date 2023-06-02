@@ -18,8 +18,9 @@ import userContext from "./userContext";
 
 function RoutesList({ handleLogIn, handleSignUp, handleUpdate, error }) {
   const user = useContext(userContext);
+  console.log("user= ", user);
 
-  if (user) {
+  if (user.user) {
     return (
       <Routes>
         <Route path="/" element={<Home />} />

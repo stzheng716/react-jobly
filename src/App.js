@@ -13,30 +13,32 @@ import JoblyApi from "./api";
  */
 function App() {
   const [currUser, setCurrUser] = useState({ user: null, isLoading: true });
-  const [token, setToken] = useState("");
+  const [token, setToken] = useState(localStorage.getItem("token"));
+  console.log("currUser= ", currUser);
   useEffect(
     function changeUser() {
-      checkLocalStorage()
+      // checkLocalStorage()
       getUser();
       setCurrUser({ isLoading: false });
     },
     [token]
   );
 
-  function checkLocalStorage() {
-    const storageToken = localStorage.getItem("token");
-    if (storageToken) {    
-      JoblyApi.token = token;
-      setToken(storageToken);
-    }
-  }
+  // function checkLocalStorage() {
+  //   // const storageToken = localStorage.getItem("token");
+  //   if (storageToken) {
+  //     JoblyApi.token = token;
+  //     setToken(storageToken);
+  //   }
+  // }
 
   /** Make a get request to api and receive and set a current user*/
   async function getUser() {
     // checkLocalStorage();
     if (token) {
+      JoblyApi.token = token;
+      // setToken(storageToken);
       const { username } = jwt_decode(token);
-      console.log("USERNAME", username);
       const user = await JoblyApi.getUser(username);
       setCurrUser({ user: user, isLoading: false });
     }
@@ -91,11 +93,11 @@ function App() {
     setToken("");
   }
 
-  if (currUser.isLoading) return <i>Loading...</i>;
+  // if (currUser.isLoading) return <i>Loading...</i>;
 
   return (
     <div className="App">
-      <userContext.Provider value={currUser.user}>
+      <userContext.Provider value={currUser}>
         <BrowserRouter>
           <NavBar handleLogout={handleLogout} />
           <RoutesList
