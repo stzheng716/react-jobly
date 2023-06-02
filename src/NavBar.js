@@ -14,7 +14,7 @@ import userContext from "./userContext";
  */
 //TODO: see if we can make NavLink active
 function NavBar({ handleLogout }) {
-  const user = useContext(userContext);
+  const { user } = useContext(userContext);
 
   return (
     <Navbar bg="light" expand="lg">

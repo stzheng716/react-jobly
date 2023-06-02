@@ -18,7 +18,7 @@ import userContext from "./userContext";
 
 function RoutesList({ handleLogIn, handleSignUp, handleUpdate, error }) {
   const user = useContext(userContext);
-  console.log("user= ", user);
+  console.log("user= ", user.user)
 
   if (user.user) {
     return (

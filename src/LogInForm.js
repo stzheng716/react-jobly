@@ -45,6 +45,7 @@ function LogInForm({ handleLogIn }) {
     });
     navigate("/");
   }
+  console.log("ERROR", error)
 
   return (
     <form className="LogInForm" onSubmit={handleSubmit}>

@@ -19,7 +19,6 @@ function App() {
     function changeUser() {
       // checkLocalStorage()
       getUser();
-      setCurrUser({ isLoading: false });
     },
     [token]
   );
