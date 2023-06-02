@@ -26,11 +26,11 @@ function Home() {
   return (
     <div className="background">
       <div>
-        <h1>Jobly!</h1>
+        <h1 className="displayText">Jobly!</h1>
         <div>
-          <h2>All the jobs in one, convenient place.</h2>
+          <h2 className="displayText">All the jobs in one, convenient place.</h2>
           {user.user ? (
-            <h2>Welcome Back, {user.user.firstName}!</h2>
+            <h2 className="displayText">Welcome Back, {user.user.firstName}!</h2>
           ) : (
             <div>
               <Button variant="primary" onClick={redirectToLogIn}>Log in</Button>{" "}

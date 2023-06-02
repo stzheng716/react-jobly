@@ -3,8 +3,10 @@ import { NavLink } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import NavDropdown from "react-bootstrap/NavDropdown";
 import userContext from "./userContext";
+import { Button } from "react-bootstrap";
+
+import "./Navbar.css";
 
 /** NavBar component.
  *
@@ -17,9 +19,9 @@ function NavBar({ handleLogout }) {
   const { user } = useContext(userContext);
 
   return (
-    <Navbar bg="light" expand="lg">
+    <Navbar bg="light" expand="lg" variant="light">
       <Container>
-        <Nav.Link href="/">Jobly</Nav.Link>
+        <Navbar.Brand href="/">Jobly</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           {user ? (
@@ -27,9 +29,9 @@ function NavBar({ handleLogout }) {
               <Nav.Link href="/companies">Companies </Nav.Link>
               <Nav.Link href="/jobs">Jobs</Nav.Link>
               <Nav.Link href="/profile">Profile </Nav.Link>
-              <Nav.Link href="/logout" onClick={handleLogout}>
-                logout {user.username}
-              </Nav.Link>
+              <Button variant="outline-primary" href="/logout" onClick={handleLogout}>
+                Logout {user.username}
+              </Button>
             </Nav>
           ) : (
             <Nav className="ms-auto">
