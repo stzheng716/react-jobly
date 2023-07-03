@@ -1,4 +1,4 @@
-![preview img](/joblypreview.jpeg)
+![preview img](/joblypreview.jpg)
 
 # Getting Started with Create React App
 
