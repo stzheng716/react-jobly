@@ -30,6 +30,7 @@ function CompanyDetail() {
     fetchCompany();
   }, []);
 
+  //make a loading component
   if (!company && !error) return <i>Loading...</i>;
 
   return (

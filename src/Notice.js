@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Alert from 'react-bootstrap/Alert';
 
 
-/** Alert component.
+/** Notice component.
  *
  * Prop:
  * - Notice: [message, message,...]

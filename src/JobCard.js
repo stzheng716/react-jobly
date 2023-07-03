@@ -1,6 +1,7 @@
 import React from "react";
 import convertAndFormat from "./convertAndFormat";
 import Card from "react-bootstrap/Card";
+import Button from "react-bootstrap/Button";
 
 /** JobCard component.
  *
@@ -22,6 +23,7 @@ function JobCard({ job }) {
         <Card.Text>{companyHandle}</Card.Text>
         {salary && <Card.Text>Salary: ${formattedSalary}</Card.Text>}
         <Card.Text>equity: {equity === "0" || equity === null ? <p>No equity</p> : <p>{equity}</p>}</Card.Text>
+        <Button>Apply</Button>
       </Card.Body>
     </Card>
   );

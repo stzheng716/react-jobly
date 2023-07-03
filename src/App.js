@@ -6,6 +6,7 @@ import userContext from "./userContext";
 import RoutesList from "./RoutesList";
 import NavBar from "./NavBar";
 import JoblyApi from "./api";
+import useLocalStorage from "./hooks/useLocalStorage";
 
 const LOCAL_STORAGE_TOKEN_KEY = "token";
 
@@ -15,9 +16,7 @@ const LOCAL_STORAGE_TOKEN_KEY = "token";
  */
 function App() {
   const [currUser, setCurrUser] = useState({ user: null, isLoaded: false });
-  const [token, setToken] = useState(
-    localStorage.getItem(LOCAL_STORAGE_TOKEN_KEY)
-  );
+  const [token, setToken] = useLocalStorage(LOCAL_STORAGE_TOKEN_KEY)
   useEffect(
     function changeUser() {
       getUser();
